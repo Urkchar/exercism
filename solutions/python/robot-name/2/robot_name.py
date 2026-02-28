@@ -1,0 +1,35 @@
+"""Robot Name"""
+
+import random
+import string
+
+
+def generate_name() -> str:
+    """Returns a string containing 2 random uppercase letters followed by 3 random digits"""
+    return "".join(random.choices(string.ascii_uppercase, k=2) + random.choices(string.digits, k=3))
+
+
+class Robot:
+    def __init__(self):
+        self.names_in_use = set()
+        self.give_name()
+
+    def give_name(self):
+        """Assign a name to the Robot"""
+        while True:
+            name = generate_name()
+            if name not in self.names_in_use:
+                self.name = name
+                self.names_in_use.add(name)
+                break
+
+    def reset(self):
+        """Change the name of the Robot to a new name"""
+        # Store the old name so that it can be removed from the new list of names
+        old_name = self.name
+
+        # Give a new name
+        self.give_name()
+
+        # Remove the old name from the names in use
+        self.names_in_use.remove(old_name)
